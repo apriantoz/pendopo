@@ -1,17 +1,17 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout>
+    <main class="max-w-xl mx-auto mt-20 p-6 bg-white rounded-xl shadow-md">
+        <h1 class="text-3xl font-bold text-slate-800 mb-4">Welcome to Astro!</h1>
+        <p class="text-slate-600 mb-4">
+            You are currently running <strong class="text-indigo-600">Astro</strong>.
+        </p>
+        <p>
+            <a href="https://docs.astro.build" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline font-medium">
+                Read the docs &rarr;
+            </a>
+        </p>
+    </main>
+</Layout>
