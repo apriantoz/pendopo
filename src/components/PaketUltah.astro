@@ -1,0 +1,170 @@
+---
+// 1. Interface TypeScript untuk validasi props/data
+export interface BirthdayPackageItem {
+  id: string;
+  name: string;
+  capacity: string;
+  price: string;
+  unit?: string;
+  isPopular?: boolean;
+  features: string[];
+}
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  packages?: BirthdayPackageItem[];
+}
+
+// 2. Data Default
+const defaultPackages: BirthdayPackageItem[] = [
+  {
+    id: "birthday-garden-party",
+    name: "Birthday Garden Party",
+    capacity: "Kapasitas 20–50 Orang",
+    price: "2.500.000",
+    unit: "mulai",
+    features: [
+      "Sewa pendopo dan taman",
+      "Dekorasi ulang tahun standar",
+      "Meja dan kursi",
+      "Sound system & Area foto",
+      "Dokumentasi foto (30 digital + 5 editing)"
+    ]
+  },
+  {
+    id: "birthday-cultural-experience",
+    name: "Birthday Cultural Experience",
+    capacity: "Kapasitas 20–50 Orang",
+    price: "5.000.000",
+    unit: "mulai",
+    isPopular: true,
+    features: [
+      "Sewa venue pendopo & taman",
+      "Dekorasi tematik Bali & Sound system",
+      "Workshop tari Bali & gamelan",
+      "Foto dengan kostum Bali",
+      "Dokumentasi foto (50 digital + 10 editing)"
+    ]
+  }
+];
+
+// 3. Destrukturisasi Props
+const {
+  title = "PAKET PERAYAAN ULANG TAHUN",
+  subtitle = "Rayakan momen pertambahan usia yang meriah dan unik di area pendopo dan taman SSKI",
+  packages = defaultPackages
+} = Astro.props;
+---
+
+<!-- Main Section dengan Background Gelap Senada & Scroll Margin Navbar -->
+<section id="paket-ulang-tahun" class="relative w-full bg-[#050505] text-white px-6 py-20 scroll-mt-20 overflow-hidden">
+  <div class="max-w-5xl mx-auto relative z-10">
+    
+    <!-- Section Title -->
+    <div class="text-center mb-14">
+      <span class="text-pink-400 font-medium tracking-widest uppercase text-xs sm:text-sm">Birthday Celebration</span>
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mt-2 mb-3 uppercase">
+        {title}
+      </h2>
+      <p class="text-zinc-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+        {subtitle}
+      </p>
+    </div>
+
+    <!-- Grid Render Loop (.map) dengan Strict Type Annotation -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+      {packages.map((pkg: BirthdayPackageItem) => (
+        <article
+          id={pkg.id}
+          class={`rounded-3xl transition-all overflow-hidden flex flex-col justify-between relative p-8 border ${
+            pkg.isPopular
+              ? "bg-zinc-900/90 border-pink-500/50 shadow-[0_0_30px_rgba(236,72,153,0.15)] ring-1 ring-pink-500/50"
+              : "bg-zinc-900/40 border-white/10 hover:border-white/20 hover:bg-zinc-900/60"
+          }`}
+        >
+          <!-- Badge Populer -->
+          {pkg.isPopular && (
+            <div class="absolute top-0 right-0 bg-pink-600 text-white text-[10px] uppercase tracking-wider font-bold px-4 py-1.5 rounded-bl-2xl shadow-md">
+              Rekomendasi Favorit
+            </div>
+          )}
+
+          <div>
+            <!-- Header Card -->
+            <div class="mb-6">
+              <span class="inline-block bg-pink-500/20 text-pink-300 border border-pink-500/30 text-xs font-semibold px-3 py-1 rounded-full mb-4">
+                {pkg.capacity}
+              </span>
+              <h3 class="text-2xl font-bold text-white mb-2">
+                {pkg.name}
+              </h3>
+            </div>
+
+            <!-- Harga -->
+            <div
+              class={`flex flex-col my-6 p-4 rounded-2xl border ${
+                pkg.isPopular ? "bg-pink-950/40 border-pink-500/30" : "bg-black/40 border-white/5"
+              }`}
+            >
+              <span class={`text-xs font-semibold uppercase tracking-wider mb-1 ${pkg.isPopular ? "text-pink-400" : "text-zinc-400"}`}>
+                Harga {pkg.unit}:
+              </span>
+              <div class="flex items-baseline gap-1.5">
+                <span class={`text-sm font-medium ${pkg.isPopular ? "text-pink-400" : "text-zinc-400"}`}>
+                  Rp
+                </span>
+                <span class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                  {pkg.price}
+                </span>
+              </div>
+            </div>
+
+            <!-- Fasilitas List -->
+            <div class="border-t border-white/10 pt-6">
+              <h4 class="text-xs font-bold uppercase tracking-wider mb-4 text-zinc-400">
+                Fasilitas Termasuk:
+              </h4>
+              <ul class="space-y-3 text-sm text-zinc-300">
+                {pkg.features.map((feature: string) => (
+                  <li class="flex items-start gap-3">
+                    <svg
+                      class="w-5 h-5 shrink-0 mt-0.5 text-pink-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span class="leading-snug">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <!-- Action Button -->
+          <div class="pt-8">
+            <a
+              href="#kontakt"
+              class={`w-full block text-center font-semibold py-3.5 px-4 rounded-xl transition-all duration-300 ${
+                pkg.isPopular
+                  ? "bg-white text-black hover:bg-zinc-200 shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+                  : "bg-white/10 hover:bg-white/20 text-white border border-white/10"
+              }`}
+            >
+              Pesan Paket Ulang Tahun
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+  </div>
+
+  <!-- Background Glow Effects (Konsisten) -->
+  <div class="absolute inset-0 z-0 pointer-events-none">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-125 h-125 bg-pink-900/10 rounded-full blur-[140px]"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
+  </div>
+</section>

@@ -1,0 +1,116 @@
+---
+// 1. Interface TypeScript untuk validasi props/data
+export interface AddonItem {
+  id: string;
+  name: string;
+  price: string;
+  unit?: string;
+  category?: string;
+}
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  addons?: AddonItem[];
+}
+
+// 2. Data Default
+const defaultAddons: AddonItem[] = [
+  { id: "addon-1", name: "Tambahan dekorasi", price: "1.000.000", unit: "mulai", category: "Dekorasi" },
+  { id: "addon-2", name: "Dekorasi custom", price: "2.500.000", unit: "mulai", category: "Dekorasi" },
+  { id: "addon-3", name: "Fotografer", price: "1.500.000", unit: "mulai", category: "Dokumentasi" },
+  { id: "addon-4", name: "Videografer", price: "2.000.000", unit: "mulai", category: "Dokumentasi" },
+  { id: "addon-5", name: "Foto + video", price: "3.000.000", unit: "mulai", category: "Dokumentasi" },
+  { id: "addon-6", name: "Sound system tambahan", price: "1.000.000", unit: "mulai", category: "Teknis & Peralatan" },
+  { id: "addon-7", name: "Lighting", price: "1.000.000", unit: "mulai", category: "Teknis & Peralatan" },
+  { id: "addon-8", name: "Gamelan Bali", price: "1.500.000", unit: "mulai", category: "Seni & Pertunjukan" },
+  { id: "addon-9", name: "Pertunjukan tari Bali", price: "1.500.000", unit: "mulai", category: "Seni & Pertunjukan" },
+  { id: "addon-10", name: "Workshop tari Bali", price: "1.500.000", unit: "mulai", category: "Seni & Pertunjukan" },
+  { id: "addon-11", name: "Workshop gamelan", price: "1.500.000", unit: "mulai", category: "Seni & Pertunjukan" },
+  { id: "addon-12", name: "Tata rias Bali", price: "500.000", unit: "/ orang", category: "Tata Rias & Kostum" },
+  { id: "addon-13", name: "Kostum Bali", price: "500.000", unit: "/ orang", category: "Tata Rias & Kostum" },
+  { id: "addon-14", name: "Dekorasi khusus wedding", price: "By request", unit: "", category: "Dekorasi" },
+  { id: "addon-15", name: "Dokumentasi drone", price: "By request", unit: "", category: "Dokumentasi" }
+];
+
+// 3. Destrukturisasi Props
+const {
+  title = "ADD-ON / FASILITAS TAMBAHAN",
+  subtitle = "Lengkapi paket acara Anda dengan berbagai layanan pilihan sesuai kebutuhan",
+  addons = defaultAddons
+} = Astro.props;
+---
+
+<!-- Main Section dengan Background Gelap Senada & Scroll Margin Navbar -->
+<section id="add-on-fasilitas" class="relative w-full bg-[#050505] text-white px-6 py-20 scroll-mt-20 overflow-hidden">
+  <div class="max-w-4xl mx-auto relative z-10">
+    
+    <!-- Section Title -->
+    <div class="text-center mb-14">
+      <span class="text-indigo-400 font-medium tracking-widest uppercase text-xs sm:text-sm">Custom Options</span>
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mt-2 mb-3 uppercase">
+        {title}
+      </h2>
+      <p class="text-zinc-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+        {subtitle}
+      </p>
+    </div>
+
+    <!-- Add-On Table Component dengan Styling Dark Mode -->
+    <div class="bg-zinc-900/60 backdrop-blur-md rounded-3xl border border-white/10 shadow-[0_0_30px_rgba(0,0,0,0.5)] overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-black/60 border-b border-white/10 text-zinc-400 text-xs sm:text-sm uppercase tracking-wider">
+              <th class="py-5 px-6 font-bold">Fasilitas / Layanan</th>
+              <th class="py-5 px-6 font-bold text-right">Harga</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/5 text-sm">
+            {addons.map((addon: AddonItem) => (
+              <tr id={addon.id} class="hover:bg-white/3 transition-colors group">
+                <td class="py-4 px-6 font-medium text-zinc-200 flex items-center gap-3">
+                  <div class="w-7 h-7 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center shrink-0 group-hover:border-indigo-500/40 transition-colors">
+                    <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                  </div>
+                  <div>
+                    <span class="block leading-snug">{addon.name}</span>
+                    {addon.category && (
+                      <span class="text-[10px] text-zinc-500 font-normal uppercase tracking-wider">{addon.category}</span>
+                    )}
+                  </div>
+                </td>
+                <td class="py-4 px-6 font-semibold text-white text-right whitespace-nowrap">
+                  {addon.price.toLowerCase().includes("request") ? (
+                    <span class="inline-block bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs font-bold px-3 py-1 rounded-full">
+                      {addon.price}
+                    </span>
+                  ) : (
+                    <span>
+                      <span class="text-xs text-zinc-400 font-normal mr-1">
+                        {addon.unit === "mulai" ? "Mulai" : ""}
+                      </span>
+                      <span class="text-indigo-400">Rp</span> <span class="text-white font-bold">{addon.price}</span>
+                      {addon.unit && addon.unit !== "mulai" && (
+                        <span class="text-xs text-zinc-400 font-normal ml-1">{addon.unit}</span>
+                      )}
+                    </span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Background Glow Effects (Konsisten) -->
+  <div class="absolute inset-0 z-0 pointer-events-none">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-125 h-125 bg-indigo-900/10 rounded-full blur-[140px]"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
+  </div>
+</section>

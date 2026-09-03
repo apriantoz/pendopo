@@ -1,0 +1,175 @@
+---
+// 1. Interface TypeScript untuk validasi props/data
+export interface LocalWorkshopPackage {
+  id: string;
+  name: string;
+  duration: string;
+  minPax: string;
+  price: string;
+  isPopular?: boolean;
+  features: string[];
+  optionalFeature?: string;
+}
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  packages?: LocalWorkshopPackage[];
+}
+
+// 2. Data Default (jika tidak dipass dari luar)
+const defaultPackages: LocalWorkshopPackage[] = [
+  {
+    id: "paket-pengenalan-seni-bali",
+    name: "Paket Pengenalan Seni Bali",
+    duration: "1–2 jam",
+    minPax: "Min. 10 Orang",
+    price: "100.000 – 150.000",
+    features: [
+      "Welcome drink",
+      "Pengenalan Rumah Budaya dan Pendopo Taman SSKI",
+      "Workshop tari Bali dasar & gerak ekspresi",
+      "Pengenalan & praktik gamelan Bali sederhana",
+      "Foto bersama & foto dengan kostum tari Bali",
+      "Dokumentasi kegiatan"
+    ]
+  },
+  {
+    id: "paket-workshop-seni-bali-lengkap",
+    name: "Paket Workshop Seni Bali Lengkap",
+    duration: "1–2 jam",
+    minPax: "Min. 15 Orang",
+    price: "175.000 – 250.000",
+    isPopular: true,
+    features: [
+      "Welcome drink & pengenalan budaya Bali",
+      "Workshop tari & gamelan Bali",
+      "Pengenalan, tata rias, & kesempatan mengenakan busana Bali",
+      "Sesi foto individu & kelompok + Dokumentasi",
+      "Sertifikat / kenang-kenangan peserta"
+    ],
+    optionalFeature: "Makan siang tradisional (opsional)"
+  }
+];
+
+// 3. Destrukturisasi Props
+const {
+  title = "PAKET WORKSHOP KELOMPOK WISATAWAN LOKAL",
+  subtitle = "Cocok untuk sekolah, mahasiswa, komunitas, organisasi, perusahaan, dan kunjungan edukasi.",
+  packages = defaultPackages
+} = Astro.props;
+---
+
+<!-- Main Section dengan Background Gelap Senada & Scroll Margin Navbar -->
+<section id="paket-workshop-lokal" class="relative w-full bg-[#050505] text-white px-6 py-20 scroll-mt-20 overflow-hidden">
+  <div class="max-w-6xl mx-auto relative z-10">
+    
+    <!-- Section Title -->
+    <div class="text-center mb-14">
+      <span class="text-indigo-400 font-medium tracking-widest uppercase text-xs sm:text-sm">Educational Workshop</span>
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mt-2 mb-3 uppercase">
+        {title}
+      </h2>
+      <p class="text-zinc-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+        {subtitle}
+      </p>
+    </div>
+
+    <!-- Grid Render Loop (.map) - 2 Kolom Seimbang -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+      {packages.map((pkg) => (
+        <article
+          id={pkg.id}
+          class={`rounded-3xl transition-all overflow-hidden flex flex-col justify-between relative p-8 border ${
+            pkg.isPopular
+              ? "bg-zinc-900/90 border-indigo-500/50 shadow-[0_0_30px_rgba(99,102,241,0.15)] ring-1 ring-indigo-500/50"
+              : "bg-zinc-900/40 border-white/10 hover:border-white/20 hover:bg-zinc-900/60"
+          }`}
+        >
+          <!-- Badge Rekomendasi / Populer -->
+          {pkg.isPopular && (
+            <div class="absolute top-0 right-0 bg-indigo-600 text-white text-[10px] uppercase tracking-wider font-bold px-4 py-1.5 rounded-bl-2xl shadow-md">
+              Rekomendasi Utama
+            </div>
+          )}
+
+          <div>
+            <!-- Header Card -->
+            <div class="mb-6">
+              <span class={`inline-block text-xs font-semibold px-3 py-1 rounded-full mb-4 ${
+                pkg.isPopular ? "bg-indigo-500/20 text-indigo-300 border border-indigo-500/30" : "bg-white/10 text-zinc-300 border border-white/10"
+              }`}>
+                {pkg.minPax}
+              </span>
+              <h3 class="text-2xl font-bold text-white mb-1.5">{pkg.name}</h3>
+              <p class="text-zinc-400 text-sm">Durasi: <span class="text-zinc-200 font-medium">{pkg.duration}</span></p>
+            </div>
+            
+            <!-- Harga -->
+            <div
+              class={`flex items-baseline gap-1.5 my-6 p-4 rounded-2xl border ${
+                pkg.isPopular ? "bg-indigo-950/40 border-indigo-500/30" : "bg-black/40 border-white/5"
+              }`}
+            >
+              <span class={`text-sm font-medium ${pkg.isPopular ? "text-indigo-400" : "text-zinc-400"}`}>
+                Rp
+              </span>
+              <span class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                {pkg.price}
+              </span>
+              <span class="text-zinc-400 text-sm font-medium">/ orang</span>
+            </div>
+
+            <!-- Fasilitas List -->
+            <div class="border-t border-white/10 pt-6">
+              <h4 class="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-4">
+                Fasilitas Termasuk:
+              </h4>
+              <ul class="space-y-3 text-sm text-zinc-300">
+                {pkg.features.map((feature) => (
+                  <li class="flex items-start gap-3">
+                    <svg class="w-5 h-5 text-indigo-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span class="leading-snug">{feature}</span>
+                  </li>
+                ))}
+
+                <!-- Fitur Opsional jika ada -->
+                {pkg.optionalFeature && (
+                  <li class="flex items-start gap-3 pt-2 border-t border-white/5 mt-2">
+                    <svg class="w-5 h-5 text-purple-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                    <span class="font-medium text-purple-300 leading-snug">{pkg.optionalFeature}</span>
+                  </li>
+                )}
+              </ul>
+            </div>
+          </div>
+
+          <!-- Action Button -->
+          <div class="pt-8">
+            <a
+              href="#kontakt"
+              class={`w-full block text-center font-semibold py-3.5 px-4 rounded-xl transition-all duration-300 ${
+                pkg.isPopular
+                  ? "bg-white text-black hover:bg-zinc-200 shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+                  : "bg-white/10 hover:bg-white/20 text-white border border-white/10"
+              }`}
+            >
+              Pesan Paket Ini
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+  </div>
+
+  <!-- Background Glow Effects (Konsisten) -->
+  <div class="absolute inset-0 z-0 pointer-events-none">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-indigo-900/10 rounded-full blur-[140px]"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
+  </div>
+</section>

@@ -1,0 +1,220 @@
+---
+// 1. Interface TypeScript untuk validasi props/data
+export interface WorkshopPackage {
+  id: string;
+  name: string;
+  duration: string;
+  minPax: string;
+  price: string;
+  isPopular?: boolean;
+  isVIP?: boolean;
+  tagline?: string;
+  features: string[];
+}
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  packages?: WorkshopPackage[];
+}
+
+// 2. Data Default (jika tidak dipass dari luar)
+const defaultPackages: WorkshopPackage[] = [
+  {
+    id: "bali-cultural-experience",
+    name: "Bali Cultural Experience",
+    duration: "1–2 Hours",
+    minPax: "Min. 5 Pax",
+    price: "350.000",
+    features: [
+      "Welcome drink & Cultural introduction",
+      "Basic Balinese dance workshop",
+      "Introduction to Balinese gamelan",
+      "Balinese costume experience",
+      "Photo session (costume & group)",
+      "Digital documentation"
+    ]
+  },
+  {
+    id: "authentic-balinese-art-experience",
+    name: "Authentic Balinese Art Experience",
+    duration: "1–2 Hours",
+    minPax: "Min. 5 Pax",
+    price: "500.000",
+    isPopular: true,
+    features: [
+      "Welcome drink & traditional Balinese snack",
+      "Cultural introduction, dance & gamelan workshop",
+      "Balinese costume dressing",
+      "Basic Balinese dance performance",
+      "Professional photo session (Pendopo & Garden)",
+      "Digital documentation"
+    ]
+  },
+  {
+    id: "private-balinese-cultural-experience",
+    name: "Private Balinese Cultural Experience",
+    duration: "1–2 Hours",
+    minPax: "1–5 Pax Only",
+    price: "750.000",
+    isVIP: true,
+    tagline: "Personalized VIP cultural session tailored for guests seeking an intimate experience.",
+    features: [
+      "Private cultural tour",
+      "Private dance & gamelan workshop",
+      "Exclusive Balinese costume dressing",
+      "Professional photo session (Solo & Group)",
+      "Digital documentation & Balinese snacks"
+    ]
+  }
+];
+
+// 3. Destrukturisasi Props
+const {
+  title = "PAKET WORKSHOP UNTUK WISATAWAN ASING",
+  subtitle = "Immersive and authentic Balinese cultural experiences designed for international visitors and small groups.",
+  packages = defaultPackages
+} = Astro.props;
+---
+
+<!-- Main Section dengan Background Gelap Senada & Scroll Margin Navbar -->
+<section id="paket-workshop-asing" class="relative w-full bg-[#050505] text-white px-6 py-20 scroll-mt-20 overflow-hidden">
+  <div class="max-w-7xl mx-auto relative z-10">
+    
+    <!-- Section Title -->
+    <div class="text-center mb-14">
+      <span class="text-indigo-400 font-medium tracking-widest uppercase text-xs sm:text-sm">Special Offers</span>
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mt-2 mb-3 uppercase">
+        {title}
+      </h2>
+      <p class="text-zinc-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+        {subtitle}
+      </p>
+    </div>
+
+    <!-- Grid Render Loop (.map) - 3 Kolom Seimbang -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+      {packages.map((pkg) => (
+        <article
+          id={pkg.id}
+          class={`rounded-3xl transition-all overflow-hidden flex flex-col justify-between relative p-8 border ${
+            pkg.isVIP
+              ? "bg-zinc-900 border-amber-500/50 shadow-[0_0_30px_rgba(245,158,11,0.15)] ring-1 ring-amber-500/50"
+              : pkg.isPopular
+              ? "bg-zinc-900/90 border-indigo-500/50 shadow-[0_0_30px_rgba(99,102,241,0.15)] ring-1 ring-indigo-500/50"
+              : "bg-zinc-900/40 border-white/10 hover:border-white/20 hover:bg-zinc-900/60"
+          }`}
+        >
+          <!-- Badge Populer / VIP -->
+          {pkg.isPopular && (
+            <div class="absolute top-0 right-0 bg-indigo-600 text-white text-[10px] uppercase tracking-wider font-bold px-4 py-1.5 rounded-bl-2xl shadow-md">
+              Most Popular
+            </div>
+          )}
+          {pkg.isVIP && (
+            <div class="absolute top-0 right-0 bg-amber-500 text-slate-950 text-[10px] uppercase tracking-wider font-bold px-4 py-1.5 rounded-bl-2xl shadow-md">
+              Exclusive VIP
+            </div>
+          )}
+
+          <div>
+            <!-- Header Card -->
+            <div class="mb-6">
+              <span
+                class={`inline-block text-xs font-semibold px-3 py-1 rounded-full mb-4 ${
+                  pkg.isVIP
+                    ? "bg-amber-500/20 text-amber-300 border border-amber-500/30"
+                    : pkg.isPopular
+                    ? "bg-indigo-500/20 text-indigo-300 border border-indigo-500/30"
+                    : "bg-white/10 text-zinc-300 border border-white/10"
+                }`}
+              >
+                {pkg.minPax}
+              </span>
+              <h3 class="text-2xl font-bold text-white mb-2">
+                {pkg.name}
+              </h3>
+              <p class="text-zinc-400 text-sm">
+                Duration: <span class="text-zinc-200 font-medium">{pkg.duration}</span>
+              </p>
+            </div>
+
+            <!-- Tagline jika VIP -->
+            {pkg.tagline && (
+              <p class="text-amber-200/80 text-xs italic mb-6 bg-amber-500/10 p-3 rounded-xl border border-amber-500/20 leading-relaxed">
+                {pkg.tagline}
+              </p>
+            )}
+
+            <!-- Harga -->
+            <div
+              class={`flex items-baseline gap-1.5 my-6 p-4 rounded-2xl border ${
+                pkg.isVIP
+                  ? "bg-amber-950/30 border-amber-500/30"
+                  : pkg.isPopular
+                  ? "bg-indigo-950/40 border-indigo-500/30"
+                  : "bg-black/40 border-white/5"
+              }`}
+            >
+              <span class={`text-sm font-medium ${pkg.isVIP ? "text-amber-400" : pkg.isPopular ? "text-indigo-400" : "text-zinc-400"}`}>
+                IDR
+              </span>
+              <span class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                {pkg.price}
+              </span>
+              <span class="text-zinc-400 text-sm font-medium">
+                / pax
+              </span>
+            </div>
+
+            <!-- List Fitur -->
+            <div class="border-t border-white/10 pt-6">
+              <h4 class="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-4">
+                {pkg.isVIP ? "VIP Amenities:" : "Included Programs:"}
+              </h4>
+              <ul class="space-y-3 text-sm text-zinc-300">
+                {pkg.features.map((feature) => (
+                  <li class="flex items-start gap-3">
+                    <svg
+                      class={`w-5 h-5 shrink-0 mt-0.5 ${pkg.isVIP ? "text-amber-400" : "text-indigo-400"}`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span class="leading-snug">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <!-- Button Action -->
+          <div class="pt-8">
+            <a
+              href="#kontakt"
+              class={`w-full block text-center font-semibold py-3.5 px-4 rounded-xl transition-all duration-300 ${
+                pkg.isVIP
+                  ? "bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold shadow-[0_0_20px_rgba(245,158,11,0.3)]"
+                  : pkg.isPopular
+                  ? "bg-white text-black hover:bg-zinc-200 shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+                  : "bg-white/10 hover:bg-white/20 text-white border border-white/10"
+              }`}
+            >
+              {pkg.isVIP ? "Book Private Experience" : "Book Experience"}
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+  </div>
+
+  <!-- Background Glow Effects (Konsisten) -->
+  <div class="absolute inset-0 z-0 pointer-events-none">
+    <div class="absolute bottom-10 right-10 w-96 h-96 bg-amber-900/10 rounded-full blur-[140px]"></div>
+    <div class="absolute top-10 left-10 w-96 h-96 bg-indigo-900/10 rounded-full blur-[140px]"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
+  </div>
+</section>

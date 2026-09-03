@@ -1,0 +1,81 @@
+---
+// Anda bisa mendefinisikan props di sini jika diperlukan
+interface Props {
+  title?: string;
+  subtitle?: string;
+}
+
+const { 
+  title = "Sanggar Seni Kebo Iwa", 
+  subtitle = "Rasakan Pengalaman Budaya Bali yang Autentik" 
+} = Astro.props;
+
+const heroImage = "/images/sski-putih.png"; // Ganti dengan path gambar hero Anda
+const heroImageAlt = "SSKI"; // Alt text untuk gambar hero
+---
+
+<section class="relative w-full min-h-screen bg-[#050505] text-white flex items-center justify-center overflow-hidden px-6 py-12">
+  
+  {/* Background Elegan Futuristik (Efek Gradasi Glow & Grid) */}
+  <div class="absolute inset-0 z-0 pointer-events-none">
+    {/* Gradasi Utama Hitam ke Biru/Ungu Tipis */}
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-linear-to-tr from-indigo-900/20 via-purple-900/30 to-transparent rounded-full blur-[120px]"></div>
+    
+    {/* Aksen Cahaya Sudut Kanan Atas */}
+    <div class="absolute -top-40 -right-40 w-96 h-96 bg-blue-600/10 rounded-full blur-[100px]"></div>
+
+    {/* Efek Grid Halus ala Tech/Futuristik */}
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
+  </div>
+
+  {/* Konten Utama */}
+  <div class="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
+
+        <img src={heroImage} alt={heroImageAlt} class="w-32 h-32 md:w-48 md:h-48 mb-6 animate-fade-in" />
+    
+    {/* Badge / Tag kecil di atas judul */}
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs md:text-sm font-medium text-indigo-300 mb-2 backdrop-blur-md shadow-inner">
+      <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+      Pendopo Taman SSKI
+    </div>
+
+    {/* Judul Utama */}
+    <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.1] mb-6">
+      {title.split(' ').slice(0, -2).join(' ')} <br class="hidden sm:inline" />
+      <span class="bg-linear-to-r from-indigo-400 via-purple-300 to-pink-400 bg-clip-text text-transparent">
+        {title.split(' ').slice(-2).join(' ')}
+      </span>
+    </h1>
+
+<p class="max-w-2xl text-sm sm:text-base md:text-lg text-zinc-400 font-normal leading-relaxed tracking-wide mb-10">
+  {subtitle}
+</p>
+
+    {/* Tombol Aksi (CTA) */}
+    <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+      <a 
+        href="#kontakt" 
+        class="w-full sm:w-auto px-8 py-4 rounded-xl bg-white text-black font-semibold hover:bg-zinc-200 transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.15)] hover:shadow-[0_0_25px_rgba(255,255,255,0.3)] text-center"
+      >
+        Hubungi Kami
+      </a>
+      
+      <a 
+        href="#tentang-kami" 
+        class="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/5 text-white border border-white/10 font-semibold hover:bg-white/10 hover:border-white/20 transition-all duration-300 backdrop-blur-md text-center"
+      >
+        Pelajari Dulu
+      </a>
+    </div>
+
+  </div>
+
+  {/* Indikator Scroll ke Bawah (Opsional) */}
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-zinc-500 text-xs tracking-widest uppercase">
+    <span>Scroll</span>
+    <div class="w-5 h-9 rounded-full border-2 border-zinc-700 flex justify-center p-1">
+      <div class="w-1 h-2 bg-indigo-400 rounded-full animate-bounce"></div>
+    </div>
+  </div>
+
+</section>
