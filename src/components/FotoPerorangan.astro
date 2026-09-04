@@ -1,0 +1,193 @@
+---
+// 1. Interface TypeScript untuk validasi props/data
+export interface PhotoPackage {
+  id: string;
+  name: string;
+  duration: string;
+  capacity?: string;
+  price: string;
+  unit: string;
+  isPopular?: boolean;
+  isFamily?: boolean;
+  features: string[];
+}
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  packages?: PhotoPackage[];
+}
+
+// 2. Data Default (jika tidak dipass dari luar)
+const defaultPackages: PhotoPackage[] = [
+  {
+    id: "foto-kostum-basic",
+    name: "Paket Basic",
+    duration: "60–90 menit",
+    price: "250.000",
+    unit: "/ orang",
+    features: [
+      "Pemilihan & pemakaian kostum tari Bali",
+      "Penataan aksesori & arahan pose",
+      "Sesi foto di Pendopo Taman SSKI, taman, & ornamen budaya",
+      "10–15 foto digital hasil editing",
+      "Foto bersama keluarga/pasangan (maks. 3 orang)"
+    ]
+  },
+  {
+    id: "foto-kostum-premium",
+    name: "Paket Premium",
+    duration: "60–90 menit",
+    price: "400.000",
+    unit: "/ orang",
+    isPopular: true,
+    features: [
+      "Semua fasilitas Paket Basic",
+      "Tata rias sederhana & kostum lebih lengkap",
+      "20–30 foto digital",
+      "3 foto pilihan dengan editing profesional"
+    ]
+  },
+  {
+    id: "foto-kostum-couple",
+    name: "Paket Couple",
+    duration: "60–90 menit",
+    capacity: "Untuk Pasangan",
+    price: "600.000",
+    unit: "/ pasangan",
+    features: [
+      "Pemilihan & pemakaian kostum untuk 2 orang",
+      "Penataan aksesori & arahan pose pasangan",
+      "Sesi foto di Pendopo Taman SSKI & area taman",
+      "Foto digital editing lengkap"
+    ]
+  },
+  {
+    id: "foto-kostum-family",
+    name: "Paket Family",
+    duration: "60–90 menit",
+    capacity: "Maksimal 5 Orang",
+    price: "750.000",
+    unit: "/ keluarga",
+    isFamily: true,
+    features: [
+      "Pemilihan & pemakaian kostum untuk 1 keluarga",
+      "Kapasitas grup hingga 5 orang",
+      "Penataan aksesori & pose grup / keluarga",
+      "Sesi foto komplit di Pendopo & Taman SSKI",
+      "Seluruh dokumentasi digital editing"
+    ]
+  }
+];
+
+// 3. Destrukturisasi Props
+const {
+  title = "PAKET PERORANGAN – FOTO DENGAN KOSTUM TARI BALI",
+  subtitle = "Balinese Costume Photo Experience",
+  packages = defaultPackages
+} = Astro.props;
+---
+
+<section id="paket-foto-kostum" class="relative w-full bg-[#050505] text-white px-4 sm:px-6 py-20 scroll-mt-20 overflow-hidden">
+  <div class="max-w-7xl mx-auto relative z-10">
+    
+    <div class="text-center mb-12">
+      <span class="text-indigo-400 font-medium tracking-widest uppercase text-xs sm:text-sm">Photo Experience</span>
+      <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mt-2 mb-3 uppercase">
+        {title}
+      </h2>
+      <p class="text-zinc-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+        {subtitle}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
+      {packages.map((pkg: PhotoPackage) => (
+        <article
+          id={pkg.id}
+          class={`rounded-2xl transition-all overflow-hidden flex flex-col justify-between relative p-5 border ${
+            pkg.isPopular || pkg.isFamily
+              ? "bg-zinc-900/90 border-indigo-500/50 shadow-[0_0_25px_rgba(99,102,241,0.15)] ring-1 ring-indigo-500/50"
+              : "bg-zinc-900/40 border-white/10 hover:border-white/20 hover:bg-zinc-900/60"
+          }`}
+        >
+          {pkg.isPopular && (
+            <div class="absolute top-0 right-0 bg-indigo-600 text-white text-[9px] uppercase tracking-wider font-bold px-3 py-1 rounded-bl-xl shadow-md">
+              Paling Favorit
+            </div>
+          )}
+          {pkg.isFamily && (
+            <div class="absolute top-0 right-0 bg-purple-600 text-white text-[9px] uppercase tracking-wider font-bold px-3 py-1 rounded-bl-xl shadow-md">
+              Hemat Keluarga
+            </div>
+          )}
+
+          <div>
+            <div class="mb-4">
+              <span class={`inline-block text-[11px] font-semibold px-2.5 py-0.5 rounded-full mb-3 ${
+                pkg.isPopular || pkg.isFamily
+                  ? "bg-indigo-500/20 text-indigo-300 border border-indigo-500/30"
+                  : "bg-white/10 text-zinc-300 border border-white/10"
+              }`}>
+                {pkg.capacity ? pkg.capacity : `Durasi: ${pkg.duration}`}
+              </span>
+              <h3 class="text-xl font-bold text-white mb-1">{pkg.name}</h3>
+              {pkg.capacity && (
+                <p class="text-zinc-400 text-xs">Durasi: <span class="text-zinc-200 font-medium">{pkg.duration}</span></p>
+              )}
+            </div>
+            
+            <div
+              class={`flex items-baseline gap-1 my-4 p-3 rounded-xl border ${
+                pkg.isPopular || pkg.isFamily ? "bg-indigo-950/40 border-indigo-500/30" : "bg-black/40 border-white/5"
+              }`}
+            >
+              <span class={`text-xs font-medium ${pkg.isPopular || pkg.isFamily ? "text-indigo-400" : "text-zinc-400"}`}>
+                Rp
+              </span>
+              <span class="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
+                {pkg.price}
+              </span>
+              <span class="text-zinc-400 text-xs font-medium">{pkg.unit}</span>
+            </div>
+
+            <div class="border-t border-white/10 pt-4">
+              <h4 class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-3">
+                Fasilitas Paket:
+              </h4>
+              <ul class="space-y-2 text-xs text-zinc-300">
+                {pkg.features.map((feature) => (
+                  <li class="flex items-start gap-2">
+                    <svg class="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span class="leading-snug">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div class="pt-6">
+            <a
+              href="#kontak"
+              class={`w-full block text-center font-semibold text-xs sm:text-sm py-3 px-3 rounded-xl transition-all duration-300 ${
+                pkg.isPopular || pkg.isFamily
+                  ? "bg-white text-black hover:bg-zinc-200 shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+                  : "bg-white/10 hover:bg-white/20 text-white border border-white/10"
+              }`}
+            >
+              Pesan Paket
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+  </div>
+
+  <div class="absolute inset-0 z-0 pointer-events-none">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-indigo-900/10 rounded-full blur-[140px]"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
+  </div>
+</section>
