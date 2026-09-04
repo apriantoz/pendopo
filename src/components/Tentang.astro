@@ -8,20 +8,20 @@ const {
 <section id="tentang-kami" class="relative w-full bg-[#050505] text-white px-6 py-20 scroll-mt-20">
   <div class="max-w-6xl mx-auto">
     
-    <!-- Wrapper Card Besar dengan Background Gambar -->
+    {/* {Wrapper Card Besar dengan Background Gambar} */}
     <div class="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl min-h-125 flex items-center p-8 sm:p-12 md:p-16 group">
       
-      <!-- Gambar Latar dengan efek zoom halus saat hover card -->
+      {/* Gambar Latar dengan efek zoom halus saat hover card */}
       <img 
         src={imageSrc} 
         alt="Pendopo Taman SSKI" 
         class="absolute inset-0 w-full h-full object-cover filter brightness-75 transform group-hover:scale-105 transition-transform duration-700"
       />
       
-      <!-- Overlay Gelap Gradasi (Biar teks tetap kontras dan terbaca jelas) -->
+      {/* Overlay Gelap Gradasi (Biar teks tetap kontras dan terbaca jelas) */}
       <div class="absolute inset-0 bg-linear-to-r from-black/90 via-black/70 to-black/30"></div>
 
-      <!-- Konten Teks & Tombol -->
+      {/* Konten Teks & Tombol */}
       <div class="relative z-10 max-w-2xl flex flex-col items-start text-left">
         <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-[1.1] mb-6">
           {title}

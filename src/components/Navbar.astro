@@ -13,13 +13,13 @@ const {
 } = Astro.props;
 ---
 
-<!-- Header / Navbar Utama -->
+{/* Header / Navbar Utama */}
 <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-sans bg-[#050505]/50 backdrop-blur-md border-b border-white/10">
   <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
     
-    <!-- Logo & Brand / Nama -->
+    {/* Logo & Brand / Nama */}
     <a href="#" class="flex items-center gap-3 group">
-      <!-- Wadah Gambar Logo -->
+      {/* Wadah Gambar Logo */}
       <div class="relative w-10 h-10 flex items-center justify-center group-hover:border-indigo-500/50 transition-colors">
         <img 
           src={logoSrc} 
@@ -27,19 +27,19 @@ const {
           class="w-full h-full object-cover"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
         />
-        <!-- Fallback icon jika gambar logo gagal dimuat / belum ada -->
+        {/* Fallback icon jika gambar logo gagal dimuat / belum ada */}
         <div class="absolute inset-0 bg-indigo-600 text-white font-bold text-sm hidden items-center justify-center">
           SS
         </div>
       </div>
 
-      <!-- Teks Nama Brand -->
+      {/* Teks Nama Brand */}
       <span class="text-sm sm:text-base font-extrabold text-white tracking-wider uppercase group-hover:text-indigo-400 transition-colors">
         {brandName}
       </span>
     </a>
 
-    <!-- Desktop Navigation Links -->
+    {/* Desktop Navigation Links */}
     <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-zinc-300">
       <a href="#tentang-kami" class="hover:text-white transition-colors">Tentang</a>
       <a href="#paket-sewa-tempat" class="hover:text-white transition-colors">Sewa Tempat</a>
@@ -49,14 +49,14 @@ const {
       <a href="#add-on-fasilitas" class="hover:text-white transition-colors">Add-On</a>
     </nav>
 
-    <!-- Desktop CTA Button -->
+    {/* Desktop CTA Button */}
     <div class="hidden lg:block">
       <a href="#kontakt" class="bg-white text-black hover:bg-zinc-200 font-semibold px-5 py-2.5 rounded-xl text-sm transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.15)]">
         Hubungi Kami
       </a>
     </div>
 
-    <!-- Mobile Menu Hamburger Button -->
+    {/* Mobile Menu Hamburger Button */}
     <button id="menu-btn" class="lg:hidden text-zinc-300 hover:text-white focus:outline-none p-2" aria-label="Toggle Menu">
       <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
@@ -65,7 +65,7 @@ const {
 
   </div>
 
-  <!-- Mobile Dropdown Menu -->
+  {/* Mobile Dropdown Menu */}
   <div id="mobile-menu" class="hidden lg:hidden bg-zinc-900/95 backdrop-blur-lg border-b border-white/10 px-6 py-6 space-y-4 absolute top-20 left-0 right-0 shadow-2xl transition-all">
     <a href="#tentang-kami" class="mobile-link block text-zinc-300 hover:text-white font-medium py-1">Tentang Kami</a>
     <a href="#paket-sewa-tempat" class="mobile-link block text-zinc-300 hover:text-white font-medium py-1">Sewa Tempat</a>
@@ -83,7 +83,7 @@ const {
   </div>
 </header>
 
-<!-- JavaScript Sederhana untuk Toggle Mobile Menu & Smooth Closing -->
+{/* JavaScript Sederhana untuk Toggle Mobile Menu & Smooth Closing */}
 <script>
   const menuBtn = document.getElementById('menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');

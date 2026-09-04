@@ -60,11 +60,11 @@ const {
 } = Astro.props;
 ---
 
-<!-- Main Section dengan Background Gelap Senada & Scroll Margin Navbar -->
+{/* Main Section dengan Background Gelap Senada & Scroll Margin Navbar */}
 <section id="paket-workshop-lokal" class="relative w-full bg-[#050505] text-white px-6 py-20 scroll-mt-20 overflow-hidden">
   <div class="max-w-6xl mx-auto relative z-10">
     
-    <!-- Section Title -->
+    {/* Section Title */}
     <div class="text-center mb-14">
       <span class="text-indigo-400 font-medium tracking-widest uppercase text-xs sm:text-sm">Educational Workshop</span>
       <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mt-2 mb-3 uppercase">
@@ -75,7 +75,7 @@ const {
       </p>
     </div>
 
-    <!-- Grid Render Loop (.map) - 2 Kolom Seimbang -->
+    {/* Grid Render Loop (.map) - 2 Kolom Seimbang */}
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
       {packages.map((pkg) => (
         <article
@@ -167,7 +167,7 @@ const {
 
   </div>
 
-  <!-- Background Glow Effects (Konsisten) -->
+  {/* Background Glow Effects (Konsisten) */}
   <div class="absolute inset-0 z-0 pointer-events-none">
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-indigo-900/10 rounded-full blur-[140px]"></div>
     <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>

@@ -77,11 +77,11 @@ const {
 } = Astro.props;
 ---
 
-<!-- Main Section dengan Background Gelap Senada & Scroll Margin Navbar -->
+{/* {Main Section dengan Background Gelap Senada & Scroll Margin Navbar} */}
 <section id="paket-wedding" class="relative w-full bg-[#050505] text-white px-6 py-20 scroll-mt-20 overflow-hidden">
   <div class="max-w-7xl mx-auto relative z-10">
     
-    <!-- Section Title -->
+    {/* Section Title */}
     <div class="text-center mb-14">
       <span class="text-purple-400 font-medium tracking-widest uppercase text-xs sm:text-sm">Wedding Venue & Package</span>
       <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mt-2 mb-3 uppercase">
@@ -92,7 +92,7 @@ const {
       </p>
     </div>
 
-    <!-- Grid Render Loop (.map) dengan Strict Type Annotation -->
+    {/* Grid Render Loop (.map) dengan Strict Type Annotation */}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
       {packages.map((pkg: WeddingPackageItem) => (
         <article
@@ -208,7 +208,7 @@ const {
 
   </div>
 
-  <!-- Background Glow Effects (Konsisten) -->
+  {/* Background Glow Effects (Konsisten) */}
   <div class="absolute inset-0 z-0 pointer-events-none">
     <div class="absolute top-1/2 right-10 w-96 h-96 bg-purple-900/10 rounded-full blur-[140px]"></div>
     <div class="absolute bottom-10 left-10 w-96 h-96 bg-amber-900/10 rounded-full blur-[140px]"></div>
