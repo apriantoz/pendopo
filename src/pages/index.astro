@@ -13,6 +13,7 @@ import FotoPerorangan from '../components/FotoPerorangan.astro';
 import Footer from '../components/Footer.astro';
 import Navbar from '../components/Navbar.astro';
 import HubungiKami from '../components/HubungiKami.astro';
+import Galeri from '../components/Galeri.astro';
 ---
 
 <Layout title="Pendopo Taman SSKI - Ruang Terbuka Seni & Budaya Bali" description="Pendopo Taman SSKI adalah ruang terbuka yang menggabungkan keindahan seni dan budaya Bali. Kami menyediakan berbagai program workshop seni, pelatihan sanggar tari dan gamelan, serta penyediaan tempat untuk berbagai momentum istimewa.">
@@ -20,6 +21,7 @@ import HubungiKami from '../components/HubungiKami.astro';
   <main class="bg-[#050505] text-white selection:bg-indigo-500 selection:text-white overflow-x-hidden">
     <Hero/>
     <Tentang/>
+    <Galeri limit={6}/>
     <SewaTempat/>
     <SewaLokal/>
     <SewaAsing/>

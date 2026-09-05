@@ -1,0 +1,23 @@
+backend:
+  name: github
+  repo: apriantoz/pendopo
+  branch: main
+  base_url: https://pendopo.ekaaprianta.workers.dev
+  auth_endpoint: /auth
+
+# Lokasi Penyimpanan Gambar Galeri
+media_folder: "public/images/galeri"
+public_folder: "/images/galeri"
+
+collections:
+  - name: "galeri"
+    label: "Galeri Foto"
+    folder: "src/content/galeri"
+    create: true
+    extension: "json"
+    format: "json"
+    slug: "{{slug}}"
+    fields:
+      - { label: "Judul Foto / Kegiatan", name: "title", widget: "string" }
+      - { label: "Foto", name: "image", widget: "image" }
+      - { label: "Tanggal Upload", name: "date", widget: "datetime" }
