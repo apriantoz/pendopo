@@ -5,6 +5,10 @@ backend:
   base_url: https://pendopo.ekaaprianta.workers.dev
   auth_endpoint: /auth
 
+# Tambahkan URL subdomain secara eksplisit
+site_url: https://taman.sanggarsenikeboiwa.com
+display_url: https://taman.sanggarsenikeboiwa.com
+
 # Lokasi Penyimpanan Gambar Galeri
 media_folder: "public/images/galeri"
 public_folder: "/images/galeri"
