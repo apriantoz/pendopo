@@ -12,6 +12,7 @@ display_url: https://taman.sanggarsenikeboiwa.com
 # Lokasi Penyimpanan Gambar Galeri
 media_folder: "public/images/galeri"
 public_folder: "/images/galeri"
+media_folder_relative: false
 
 collections:
   - name: "galeri"
